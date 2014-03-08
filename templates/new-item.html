@@ -1,0 +1,34 @@
+<!-- new item -->
+
+{%extends "base.html"%}
+
+{%block head%}
+
+<title>TODO | NEW ITEM</title>
+<script src="scripts/script-new.js"></script>
+
+{%endblock%}
+
+
+
+{%block content%}
+
+<div class="new-item">
+
+  <div class="form">
+    <form id="todo-form" method="post">
+      <label for="description">What do you need to do?</label>
+      <input type="text" name="description" value="">
+      <input type="submit" name="description" value="Add it to the list.">
+    </form>
+  </div>
+
+  {%if error%}
+  <div class="error">
+    Woops! You need to enter some text!
+  </div>
+  {%endif%}
+
+</div>
+
+{%endblock%}

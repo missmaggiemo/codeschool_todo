@@ -1,0 +1,74 @@
+/*base stylesheet*/
+
+body {
+  margin: 0;
+  font-family: helvetica;
+  text-align: center;
+}
+
+ul {
+  list-type: none;
+  margin: 0;
+}
+
+li {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: black;
+}
+
+.nav {
+  overflow: hidden;
+}
+
+.nav h1 {
+  margin-bottom: 10px;
+}
+
+.nav #logo {
+  float: left;
+  margin-left: 20px;
+}
+
+.nav #menu {
+  float: right;
+}
+
+#menu a {
+  display: inline-block;
+  margin-right: 20px
+}
+
+.footer {
+  padding: 20px;
+}
+
+.error {
+  color: red;
+  padding: 20px;
+}
+
+.todo-item, .new-item .form {
+  padding: 20px;
+}
+
+.todo-item span {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.todo-item h3 {
+  margin: 10px;
+}
+
+.form #todo-form {
+  margin: 10px;
+}
