@@ -38,7 +38,7 @@ class Handler(webapp2.RequestHandler):
 # utility methods
 
 def log_record(text):
-    return logging.error(text.upper())
+    return logging.error(text)
 
 def sleep(n):
     return time.sleep(abs(float(n)))

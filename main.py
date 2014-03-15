@@ -81,7 +81,7 @@ class ClearHandler(Handler):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/todo', TodoHandler),
+    ('/todos', TodoHandler),
     ('/new', NewItemHandler),
     ('/clear', ClearHandler)
 ], debug=True)

@@ -56,17 +56,27 @@ a:hover {
   padding: 20px;
 }
 
+
+
+
+/*todo list*/
+
 .todo-item, .new-item .form {
   padding: 20px;
 }
 
-.todo-item span {
-  display: inline-block;
-  margin: 0 10px;
+.todo-item {
+  margin: 10px; 
 }
 
 .todo-item h3 {
-  margin: 10px;
+  margin: 0 10px;
+  display: inline-block;
+}
+
+.todo-item input {
+  margin: 0 10px;
+  display: inline-block;
 }
 
 .form #todo-form {

@@ -1,6 +1,10 @@
 // script scraps
 
 
+
+
+
+
 this.onload = $.getJSON('/todo', function(data){
   var div = $(".todo-item");
   var input = "<input type='checkbox' name='description' data-id=" +data['id']+ ">";
@@ -19,4 +23,22 @@ this.onload = $.getJSON('/todo', function(data){
   div.attr("data-id", todoItem.get('id'));
   div.find("#checkbox").html(input);
   div.find("#description").text(todoItem.get('description'));
+});
+
+
+
+{urlRoot: '/todos'}
+
+
+
+
+
+
+this.onload = $.getJSON('/todo', function(data){
+  var todoItem = new TodoItem(data);
+  console.log(todoItem);
+  var todoView = new TodoView({model: todoItem});
+  todoView.render();
+  console.log(todoView.el);
+  $(".todo-item").html(todoView.el)
 });
