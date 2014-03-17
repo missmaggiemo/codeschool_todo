@@ -28,6 +28,7 @@ class TodoItem(db.Model):
     description = db.StringProperty(required=True)
     status = db.StringProperty(required=True, choices=set(["incomplete", "in progress", "complete"]), default="incomplete")
     id = db.IntegerProperty()
+    created_at = db.DateTimeProperty(auto_now=True)
 
 
 # save_item
@@ -38,7 +39,8 @@ def save_item(description):
     new_item.id = new_item.key().id()
     new_item.put()
     log_record(str(new_item))
-    sleep(0.3)
+    log_record(new_item.id)
+    sleep(0.5)
 
 
 # handlers
@@ -50,26 +52,44 @@ class MainHandler(Handler):
 
 
 class TodoHandler(Handler):
-    def get(self):
-        item = TodoItem.all().get()
-        if item:
-          dict = {'description': item.description, 'status': item.status.upper(), 'id': item.id}
-          data = json.dumps(dict)
-          log_record(data)
-          self.write(data)
-
-
-class NewItemHandler(Handler):
-    def get(self):
-        self.render("new-item.html")
+    def get(self, id=''):
+        if id != '':
+            item = TodoItem.get_by_id(id)
+            if item:
+              dict = {'description': item.description, 'status': item.status.upper(), 'id': item.key().id(), 'link': "/todos/%s" % item.key().id() }
+              data = json.dumps(dict)
+              log_record(data)
+              self.write(data)
+        else:
+            item = TodoItem.all().order('-created_at').get()
+            if item:
+              dict = {'description': item.description, 'status': item.status.upper(), 'id': item.key().id(), 'link': "/todos/%s" % item.key().id() }
+              data = json.dumps(dict)
+              log_record(data)
+              self.write(data)
 
     def post(self):
-        description = self.request.get("description")
+        log_record("post on /todos called")
+        description = json.loads(self.request.body)['description']
         if description:
+            log_record("description found")
             save_item(description)
-            self.redirect("/")
-        else:
-            self.render("new-item.html", error=True)
+
+
+
+# class NewItemHandler(Handler):
+#     def get(self):
+#         self.render("new-item.html")
+
+    # def post(self):
+    #     log_record("post on /new called")
+    #     log_record(self.request)
+    #     description = self.request.get("description")
+    #     if description:
+    #         save_item(description)
+    #         self.redirect("/")
+    #     else:
+    #         self.render("new-item.html", error=True)
 
 
 class ClearHandler(Handler):
@@ -79,9 +99,11 @@ class ClearHandler(Handler):
         self.redirect("/")
 
 
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/todos', TodoHandler),
-    ('/new', NewItemHandler),
+    (r'/todos/\d+', TodoHandler),
+    # ('/new', NewItemHandler),
     ('/clear', ClearHandler)
 ], debug=True)

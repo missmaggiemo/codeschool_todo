@@ -61,12 +61,12 @@ a:hover {
 
 /*todo list*/
 
-.todo-item, .new-item .form {
+.todo-item {
   padding: 20px;
 }
 
 .todo-item {
-  margin: 10px; 
+  margin: 10px;
 }
 
 .todo-item h3 {
