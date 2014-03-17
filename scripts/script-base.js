@@ -1,6 +1,8 @@
 // base javascript
 
-var TodoItem = Backbone.Model.extend({urlRoot: '/todos'});
+var TodoItem = Backbone.Model.extend({
+  urlRoot: '/todos'
+});
 
 var TodoView = Backbone.View.extend({
   tagName: 'div',

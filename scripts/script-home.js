@@ -31,6 +31,7 @@ jQuery(document).ready(function(){
       todoItem = new TodoItem();
       todoItem.set({description: descrip});
       todoItem.save();
+      console.log(todoItem.get('id'));
       todoView = new TodoView({model: todoItem});
       todoView.render();
       $(this).closest('.todo-list').html(todoView.el);

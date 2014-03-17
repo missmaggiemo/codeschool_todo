@@ -40,7 +40,13 @@ def save_item(description):
     new_item.put()
     log_record(str(new_item))
     log_record(new_item.id)
-    sleep(0.5)
+    sleep(0.3)
+    return json.dumps({'description': new_item.description, 'status': new_item.status.upper(), 'id': new_item.key().id(), 'link': "/todos/%s" % new_item.key().id() })
+
+# def update_item(item, json_attrs):
+#     for attr in json_attrs:
+#         item[attr] = json_attrs[attr]
+#     item.put()
 
 
 # handlers
@@ -73,7 +79,21 @@ class TodoHandler(Handler):
         description = json.loads(self.request.body)['description']
         if description:
             log_record("description found")
-            save_item(description)
+            data = save_item(description)
+            log_record(data)
+            self.write(data)
+
+    # def put(self, id=''):
+    #     if id != '':
+    #         item = TodoItem.get_by_id(id)
+    #         attrs = json.loads(self.request.body)
+    #         update_item(item, attrs)
+    #
+    #     else:
+    #         item = TodoItem.all().order('-created_at').get()
+    #         attrs = json.loads(self.request.body)
+    #         update_item(item, attrs)
+
 
 
 
